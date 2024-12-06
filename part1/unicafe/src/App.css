@@ -1,0 +1,36 @@
+.btn {
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: white;
+}
+
+.btn:hover {
+    background-color: lightgray;
+}
+
+.btn:active {
+    background-color: gray;
+}
+
+.ml10 {
+    margin-left: 10px;
+}
+
+.ml20 {
+    margin-left: 20px;
+}
+
+.ml30 {
+    margin-left: 25px;
+}
+
+.ml50 {
+    margin-left: 50px;
+}
+
+.mb20 {
+    margin-bottom: 20px;
+}
