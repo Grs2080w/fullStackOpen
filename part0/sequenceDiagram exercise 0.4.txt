@@ -1,0 +1,28 @@
+sequenceDiagram exercise 0.4
+
+	participant browser
+	participant user
+	participant server
+
+On add new note_
+	user: create a new note and send
+	browser->>server: POST
+https://studies.cs.helsinki.fi/exampleapp/new_note
+	activate server
+	server: get content of the new note and add to database
+	server->>browser: locate to https://studies.cs.helsinki.fi/exampleapp/notes
+	desactivate server
+
+		_______________________________________________________
+
+With the page updated, the notes will contain the new note, since the POST request was made and the server returned a response according to what it should do.
+
+When adding a new note, you can see in the Network tab of DevTools that a 'new_note' file is created, and the form has the POST method.
+
+Probably on the server, when receiving the POST request, the data from this form is taken and added to the database. Soon after, the server tells the browser that it should go to the page 'https://studies.cs.helsinki.fi/exampleapp/notes'.
+
+NOTE: The data can be stored in a database, or added directly to the server, which would be unfeasible unless the server never crashes or the notes themselves are not that important.
+(LocalStorage was discarded because there was no apparently useful data or data related to a note)
+
+
+	

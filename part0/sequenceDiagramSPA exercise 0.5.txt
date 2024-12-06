@@ -1,0 +1,16 @@
+sequenceDiagramSPA exercise 0.5
+
+	participant browser
+	participant server
+
+When the page spa is loaded
+	browser->>server: GET
+https://studies.cs.helsinki.fi/exampleapp/exampleapp/data.json
+	server activate
+	server->>browser: response data.json
+	server desactivate
+	browser: processes the data
+	browser: create the UL and LIs
+
+
+The browser makes a request to server and returns data.json as a response. 

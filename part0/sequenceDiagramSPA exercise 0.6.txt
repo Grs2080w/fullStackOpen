@@ -1,0 +1,20 @@
+sequenceDiagramSPA exercise 0.6
+
+	participant browser
+	participant server
+	participant user
+
+On add new note
+	spa.js: creates a new_note containing the content and date
+	spa.js: add the new_note to array notes
+	spa.js: reloads the items list
+	browser->>server: POST
+https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+	activate server
+	server: get the content and process the request
+	server->>browser: response containing '{"message":"note created"}'
+	desactivate server
+
+
+When adding a new note, spa.js creates an object of that new note, adds the array containing all the notes, and re-renders the items that are shown to the user without reloading the page. Finally, spa.js sends that note to the server via a POST method, so that there is an update in the db.
+	
