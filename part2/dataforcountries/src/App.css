@@ -1,0 +1,18 @@
+.flag {
+    margin-top: 30px;
+    width: 200px;
+}
+
+.countrieName{
+    width: fit-content;
+}
+
+.countrie {
+    display: flex;
+    justify-content: space-between;
+    width: fit-content;
+}
+
+.btnShow{
+    margin-left: 10px;
+}

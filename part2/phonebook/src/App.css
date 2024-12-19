@@ -1,0 +1,53 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.person {
+    margin: 0%;
+}
+
+#btn {
+    margin-top: 10px;
+}
+
+input {
+    margin: 5px;
+}
+
+ul {
+    margin: 0%;
+    margin-left: 0%;
+    padding: 0%;
+}
+
+td {
+    width: 200px;
+}
+
+.green {
+    border: 2px solid rgb(14, 227, 14);
+    border-radius: 5px;
+    padding: 5px;
+    color: rgb(14, 227, 14);
+    margin: 5px;
+    font-weight: bold;
+}
+
+.red {
+    border: 2px solid rgb(227, 57, 14);
+    border-radius: 5px;
+    padding: 5px;
+    color: rgb(227, 57, 14);
+    margin: 5px;
+    font-weight: bold;
+}
+
+.yellow {
+    border: 2px solid rgb(230, 230, 1);
+    border-radius: 5px;
+    padding: 5px;
+    color: rgb(230, 230, 1);
+    margin: 5px;
+    font-weight: bold;
+}
