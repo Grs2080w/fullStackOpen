@@ -1,7 +1,7 @@
 export default function Persons({ persons , deletePerson}) {
     return persons.map((person) => {
       return (
-        <tr key={person.number}>
+        <tr key={person.name}>
 
             <td className="person" key={person.name}>
             {person.name}

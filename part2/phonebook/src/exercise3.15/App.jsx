@@ -7,7 +7,7 @@ import Notification from "./Notification";
 //style
 import "./App.css";
 //server
-import { getAll, create, remove, altere } from "./serverDb"; 
+import { getAll, create, remove } from "./serverDb"; 
 
 export default function App() {
 
@@ -16,7 +16,6 @@ export default function App() {
   const [number, setNumber] = useState("");
   const [filter, setFilter] = useState("");
   const [personsFiltered, setPersonsFiltered] = useState(persons);
-  const [alter, setAlter] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const [message, setMessage] = useState({
     message: null,
@@ -48,83 +47,56 @@ export default function App() {
     setPersonsFiltered(personsFiltered);
   }, [filter, persons]);
 
-  useEffect(() => {
-    async function updateServer() {
-      if (alter) {
-          await getAll().then((response) => {
-          setPersons(response.data);
-        });
-      }
-    }
-
-    updateServer();
-
-    setAlter(false);
-  }, [alter]);
-
-  useEffect(() => {
-    setPersonsFiltered(persons);
-  }, [persons])
-
   async function addPerson(event) {
     event.preventDefault();
 
     var existingPerson = personsFiltered.find(person => person.name === newName);   
 
     if (existingPerson) {
-      
+  
       if (window.confirm(`${newName} already exists. Replace with new number?`)) {
         // Update in-memory data
         var updatedPerson = { ...existingPerson, number };
-        let personFiltered2 = personsFiltered.map(person => person._id === updatedPerson._id ? updatedPerson : person);
+        let personFiltered2 = personsFiltered.map(person => person.id === updatedPerson.id ? updatedPerson : person);
         
         setPersonsFiltered(personFiltered2);
-
         
         // Update server data
-        await getAll().then(async(response) => {
+        /*await alter(updatedPerson);*/
 
-          let existingPerson = response.data.find(person => person.name === newName); 
-          let updatedPerson = { ...existingPerson, number };  
-          await altere(updatedPerson);
-
-        })
-        
-
+        setNewName("");
+        setNumber("");
+  
         setMessage({ message: `Updated ${existingPerson.name}`, color: 'green' });
         setShowNotification(true);
 
       } else {
 
+        setNewName("");
+        setNumber("");
+        
         setMessage({ message: `${newName} already exists.`, color: 'yellow' });
         setShowNotification(true);
       }
 
     } else {
-      // Create new person
-      var newPerson = { 
-        name: newName ? newName : "unknown", 
-        number: number ? number : "00000000" }; 
+        // Create new person
+        var newPerson = { 
+          name: newName ? newName : "unknown", 
+          number: number ? number : "00000000" }; 
+          
+        var personsFilteredThird = personsFiltered.concat(newPerson);
+
+        setPersonsFiltered(personsFilteredThird);
+        console.log(personsFilteredThird);
         
-      var personsFilteredThird = personsFiltered.concat(newPerson);
-        
-      setPersonsFiltered(personsFilteredThird);
-      
-      setMessage({ message: `Added ${newPerson.name}`, color: 'green' });
-      setShowNotification(true);
-      
-      await create(newPerson).catch((error) => {
-        setMessage({ message: error.response.data.error, color: 'red' });
+        await create(newPerson);
+
+        setNewName("");
+        setNumber("");
+    
+        setMessage({ message: `Added ${newPerson.name}`, color: 'green' });
         setShowNotification(true);
-
-        let personsFilteredAfter = personsFiltered.filter(
-          (personFiltered) => personFiltered.name !== newPerson.name
-        );
-        
-        setPersonsFiltered(personsFilteredAfter);
-        
-      })
-
     }
   
     setNewName("");

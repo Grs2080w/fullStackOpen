@@ -7,7 +7,7 @@ export async function getAll() {
 };
 
 export async function create(newObject) {
-    return await axios.post(baseUrl, newObject)
+    return await axios.post(baseUrl, newObject);
 };
 
 export async function remove({_id}) {

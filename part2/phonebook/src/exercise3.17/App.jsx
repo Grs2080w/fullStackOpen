@@ -70,7 +70,7 @@ export default function App() {
     event.preventDefault();
 
     var existingPerson = personsFiltered.find(person => person.name === newName);   
-
+    
     if (existingPerson) {
       
       if (window.confirm(`${newName} already exists. Replace with new number?`)) {
@@ -113,17 +113,7 @@ export default function App() {
       setMessage({ message: `Added ${newPerson.name}`, color: 'green' });
       setShowNotification(true);
       
-      await create(newPerson).catch((error) => {
-        setMessage({ message: error.response.data.error, color: 'red' });
-        setShowNotification(true);
-
-        let personsFilteredAfter = personsFiltered.filter(
-          (personFiltered) => personFiltered.name !== newPerson.name
-        );
-        
-        setPersonsFiltered(personsFilteredAfter);
-        
-      })
+      await create(newPerson);
 
     }
   

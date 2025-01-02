@@ -7,7 +7,7 @@ export async function getAll() {
 };
 
 export async function create(newObject) {
-    return await axios.post(baseUrl, newObject)
+    return await axios.post(baseUrl, newObject);
 };
 
 export async function remove({_id}) {
@@ -16,9 +16,10 @@ export async function remove({_id}) {
 
 }
 
-export async function altere(person) {
+export async function alter(person) {
 
-    return axios.put(`${baseUrl}/${person._id}`, {...person, number: person.number})
+    return axios.put(`${baseUrl}/${person.id}`, {...person, number: person.number})
+
 
 }
 

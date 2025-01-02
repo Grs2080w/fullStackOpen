@@ -71,7 +71,11 @@ export default function App() {
 
     var existingPerson = personsFiltered.find(person => person.name === newName);   
 
-    if (existingPerson) {
+    if (newName.length < 3){
+      setMessage({ message: `Name must be at least 3 characters long`, color: 'red' });
+      setShowNotification(true);
+      
+    } else if (existingPerson) {
       
       if (window.confirm(`${newName} already exists. Replace with new number?`)) {
         // Update in-memory data
@@ -113,17 +117,7 @@ export default function App() {
       setMessage({ message: `Added ${newPerson.name}`, color: 'green' });
       setShowNotification(true);
       
-      await create(newPerson).catch((error) => {
-        setMessage({ message: error.response.data.error, color: 'red' });
-        setShowNotification(true);
-
-        let personsFilteredAfter = personsFiltered.filter(
-          (personFiltered) => personFiltered.name !== newPerson.name
-        );
-        
-        setPersonsFiltered(personsFilteredAfter);
-        
-      })
+      await create(newPerson);
 
     }
   
