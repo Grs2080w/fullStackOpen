@@ -163,7 +163,7 @@ describe("if alt", () => {
 
     let token = await getToken();
 
-    const blogs = await api.get("/api/blogs").set("Authorization", token);
+    let blogs = await api.get("/api/blogs").set("Authorization", token);
     let person = blogs.body[0];
 
     let newPerson = {
@@ -188,6 +188,60 @@ describe("if alt", () => {
     });
 
     expect(personAfterAlt[0].title).toBe(newPerson.title);
+
+
+  });
+});
+
+describe("set defaults", () => {
+  test("set blogs defaults", async () => {
+    await Blog.deleteMany({});
+
+    let token = await getToken();
+
+    let blogsDefault = [
+      {
+        title: "RaykaBlog",
+        author: "Rayka Martilha",
+        url: "https://youtube.com",
+        likes: 20,
+        user: {
+          username: "Rayka123",
+          name: "Rayka Martilha",
+          id: "5f9b9d2a6f9c0d5e5b9c2a6f",
+        },
+      },
+      {
+        title: "GabBlog",
+        author: "Gabriel Santos",
+        url: "https://youtube.com",
+        likes: 50,
+        user: {
+          username: "Gabriel123",
+          name: "Gabriel Santos",
+          id: "5f9b9d2a6f9c0d5e5b9c2a6f",
+        },
+      },
+    ];
+
+    await api.post("/api/blogs")
+      .set("Authorization", token)
+      .send(blogsDefault[0])
+      .expect(201)
+      .expect("Content-Type", /application\/json/);
+
+    await api.post("/api/blogs")
+      .set("Authorization", token)
+      .send(blogsDefault[1])
+      .expect(201)
+      .expect("Content-Type", /application\/json/);
+
+    const response = await api.get("/api/blogs").set("Authorization", token);
+
+    expect(response.body.length).toBe(2);
+    expect(response.body[0].likes).toBe(20);
+    expect(response.body[1].likes).toBe(50);
+
   });
 });
 

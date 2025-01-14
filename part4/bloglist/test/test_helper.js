@@ -6,12 +6,22 @@ const inicialBlogs = [
     author: "Rayka Martilha",
     url: "https://youtube.com",
     likes: 20,
+    user: {
+      username: "Rayka123",
+      name: "Rayka Martilha",
+      id: "5f9b9d2a6f9c0d5e5b9c2a6f",
+    }
   },
   {
     title: "GabBlog",
     author: "Gabriel Santos",
     url: "https://youtube.com",
     likes: 50,
+    user: {
+      username: "Gabriel123",
+      name: "Gabriel Santos",
+      id: "5f9b9d2a6f9c0d5e5b9c2a6f",
+    }
   },
 ];
 

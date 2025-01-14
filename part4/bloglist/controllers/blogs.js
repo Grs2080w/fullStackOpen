@@ -29,49 +29,49 @@ blogRouter.post("/api/blogs", async (request, response, next) => {
   let blogBody = request.body;
 
   if (!request.user.id) {
-    return response.status(401).json({ error: "token invalid" });
-  }
+    response.status(401).json({ error: "token invalid" });
+  } else {
+    var user = await User.findById(request.user.id);
+    user = JSON.parse(JSON.stringify(user));
 
-  var user = await User.findById(request.user.id);
-  user = JSON.parse(JSON.stringify(user));
+    let newBlog = {
+      ...blogBody,
+      user,
+    };
 
-  let newBlog = {
-    ...blogBody,
-    user,
-  };
+    let blog = new Blog(newBlog);
+    let savedNote = await blog.save();
 
-  let blog = new Blog(newBlog);
-  let savedNote = await blog.save();
+    let blogs = await Blog.find({});
+    blogs = JSON.parse(JSON.stringify(blogs));
 
-  let blogs = await Blog.find({});
-  blogs = JSON.parse(JSON.stringify(blogs));
+    blogs.forEach((blog) => {
+      if (blog.title == blogBody.title) {
+        const { title, author, url, id } = blog;
 
-  blogs.forEach((blog) => {
-    if (blog.title == blogBody.title) {
-      const { title, author, url, id } = blog;
+        const blogAfterId = {
+          title,
+          author,
+          url,
+          id,
+        };
 
-      const blogAfterId = {
-        title,
-        author,
-        url,
-        id,
-      };
-
-      if (!user) {
-        response
-          .status(404)
-          .send({
-            status: 404,
-            error: "user not found, id must be provided",
-          })
-          .end();
-      } else {
-        userToUpdate(blogAfterId, user);
+        if (!user) {
+          response
+            .status(404)
+            .send({
+              status: 404,
+              error: "user not found, id must be provided",
+            })
+            .end();
+        } else {
+          userToUpdate(blogAfterId, user);
+        }
       }
-    }
-  });
+    });
 
-  response.status(201).json(savedNote).end();
+    response.status(201).json(savedNote).end();
+  }
 });
 
 blogRouter.delete("/api/blogs/:id", async (request, response, next) => {
@@ -100,7 +100,6 @@ blogRouter.put("/api/blogs/:id", async (request, response, next) => {
   let updatedBlog = request.body;
   response.status(200).json(updatedBlog).end();
 });
-
 
 blogRouter.get("*", (request, response) => {
   response.status(404).send({ error: "unknown endpoint" }).end();
