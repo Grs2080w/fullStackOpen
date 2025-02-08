@@ -252,12 +252,3 @@ let countries = [
 ];
 
 module.exports = countries;
-
-/*getCountries().then(response => {
-    let countries = response.data.map(country => country.name.common)
-    countries.forEach(country => {
-        console.log(country);
-        
-    })
-})
-*/
