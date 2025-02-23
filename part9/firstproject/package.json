@@ -1,0 +1,32 @@
+{
+  "name": "firstproject",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Gabriel Santos",
+  "type": "commonjs",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tn": "ts-node index.ts",
+    "calculateBmi": "ts-node bmiCalculator.ts",
+    "calculateExercises": "ts-node exercícioCalculadora.ts",
+    "start": "ts-node-dev --respawn --transpile-only index.ts",
+    "lint": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.20.0",
+    "@stylistic/eslint-plugin": "^3.1.0",
+    "@types/eslint__js": "^8.42.3",
+    "@types/node": "^22.13.1",
+    "eslint": "^9.20.0",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.23.0"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "express": "^4.21.2"
+  }
+}
